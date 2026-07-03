@@ -1,2 +1,0 @@
-# InvoiceGen
-Invoice Generator
