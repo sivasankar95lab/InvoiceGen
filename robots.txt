@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://invoice-generator.pages.dev/sitemap.xml

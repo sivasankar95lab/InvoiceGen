@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="A professional, free, and easy-to-use Indian Invoice Generator. Compliant with GST standards, supporting Tax Invoices, Simple Invoices, Delivery Challans, and Quotations.">
+    <meta name="keywords"
+        content="Invoice Generator, GST Invoice, Indian Taxation, Tax Invoice, Delivery Challan, Quotation, PDF Invoice, Free Billing Software">
+    <meta name="author" content="InvoiceGenerator">
+    <meta name="theme-color" content="#2563eb">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://invoice-generator.pages.dev/">
+    <meta property="og:title" content="Invoice Generator - Free GST Compliant Billing">
+    <meta property="og:description"
+        content="Generate professional GST-compliant invoices, challans, and quotes in seconds. Secure, fast, and completely free.">
+    <meta property="og:image" content="https://i.ibb.co/5XvB03Hm/logosmallsize.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://invoice-generator.pages.dev/">
+    <meta property="twitter:title" content="Invoice Generator - Free GST Compliant Billing">
+    <meta property="twitter:description"
+        content="Generate professional GST-compliant invoices, challans, and quotes in seconds. Secure, fast, and completely free.">
+    <meta property="twitter:image" content="https://i.ibb.co/5XvB03Hm/logosmallsize.png">
+
+    <title>Invoice Generator | Professional GST Billing Software</title>
+
+    <!-- Manifest & PWA -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="img/192x192f.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img/192x192f.png">
+
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="bg-light text-dark">
+    <h1 class="visually-hidden">Invoice Generator - Free GST Compliant Billing Software</h1>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm border-bottom">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <img src="img/512x512.png" alt="Invoice Generator Logo" class="me-2"
+                        style="height: 40px; width: 40px; object-fit: contain;">
+                    <span class="fw-bold tracking-tight text-dark h5 mb-0">Invoice<span
+                            class="text-primary">Generator</span></span>
+                </a>
+
+                <div class="d-flex align-items-center gap-3">
+
+
+                    <!-- Theme Toggle Button -->
+                    <div class="theme-toggle-btn" id="themeToggleBtn" title="Toggle Dark/Light Mode">
+                        <div class="theme-toggle-btn__indicator">
+                            <div class="theme-toggle-btn__icon-container">
+                                <i class="theme-toggle-btn__icon fa-solid"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sync Indicator -->
+                    <div id="syncIndicator" class="d-flex align-items-center gap-2 px-3 py-1 rounded border bg-body" 
+                         style="cursor: pointer;"
+                         title="Sync Status">
+                        <i id="syncIcon" class="fas fa-cloud text-secondary"></i>
+                        <span id="syncText" class="small fw-bold text-secondary">Offline</span>
+                    </div>
+
+                    <!-- Database Management Dropdown -->
+                    <div class="dropdown">
+                        <div class="container_SevMini" id="dbMenuBtn" data-bs-toggle="dropdown" aria-expanded="false"
+                            title="Database Management" role="button" tabindex="0">
+                            <div class="SevMini">
+                                <svg width="48" height="58" viewBox="0 0 74 90" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M40 76.5L72 57V69.8615C72 70.5673 71.628 71.2209 71.0211 71.5812L40 90V76.5Z"
+                                        fill="#396CAA"></path>
+                                    <path
+                                        d="M34 75.7077L2 57V69.8615C2 70.5673 2.37203 71.2209 2.97892 71.5812L34 90V75.7077Z"
+                                        fill="#396DAC"></path>
+                                    <path d="M34 76.5H40V90H34V76.5Z" fill="#396CAA"></path>
+                                    <path
+                                        d="M3.27905 55.593L35.2806 37.5438C36.3478 36.9419 37.6522 36.9419 38.7194 37.5438L70.721 55.593C71.7294 56.1618 71.7406 57.6102 70.7411 58.1945L39.2712 76.593C37.8682 77.4133 36.1318 77.4133 34.7288 76.593L3.25887 58.1945C2.25937 57.6102 2.27061 56.1618 3.27905 55.593Z"
+                                        fill="#163C79" stroke="#396CAA"></path>
+                                    <path d="M40 79L72 60V70.4001C72 71.1151 71.6183 71.7758 70.9987 72.1329L40 90V79Z"
+                                        fill="#173D7A"></path>
+                                    <path d="M34 79L3 61V71.5751L34 90V79Z" fill="#0665B2"></path>
+                                    <path id="strobe_color1" d="M58 72.5L60.5 71V74L58 75.5V72.5Z" fill="#FF715E">
+                                    </path>
+                                    <path id="strobe_color2" d="M63 69.5L65.5 68V71L63 72.5V69.5Z" fill="#17e300b4">
+                                    </path>
+                                    <path d="M68 66.5L70.5 65V68L68 69.5V66.5Z" fill="#FF715E"></path>
+                                    <path
+                                        d="M40 58.5L72 39V51.8615C72 52.5673 71.628 53.2209 71.0211 53.5812L40 72V58.5Z"
+                                        fill="#396CAA"></path>
+                                    <path
+                                        d="M34 57.7077L2 39V51.8615C2 52.5673 2.37203 53.2209 2.97892 53.5812L34 72V57.7077Z"
+                                        fill="#396DAC"></path>
+                                    <path d="M34 58.5H40V72H34V58.5Z" fill="#396CAA"></path>
+                                    <path
+                                        d="M3.27905 37.593L35.2806 19.5438C36.3478 18.9419 37.6522 18.9419 38.7194 19.5438L70.721 37.593C71.7294 38.1618 71.7406 39.6102 70.7411 40.1945L39.2712 58.593C37.8682 59.4133 36.1318 59.4133 34.7288 58.593L3.25887 40.1945C2.25937 39.6102 2.27061 38.1618 3.27905 37.593Z"
+                                        fill="#163C79" stroke="#396CAA"></path>
+                                    <path d="M40 61L72 42V52.4001C72 53.1151 71.6183 53.7758 70.9987 54.1329L40 72V61Z"
+                                        fill="#173D7A"></path>
+                                    <path d="M34 61L3 43V53.5751L34 72V61Z" fill="#0665B2"></path>
+                                    <path d="M58 54.5L60.5 53V56L58 57.5V54.5Z" fill="#FF715E"></path>
+                                    <path d="M63 51.5L65.5 50V53L63 54.5V51.5Z" fill="black"></path>
+                                    <path id="strobe_color1" d="M63 51.5L65.5 50V53L63 54.5V51.5Z" fill="#FF715E">
+                                    </path>
+                                    <path d="M68 48.5L70.5 47V50L68 51.5V48.5Z" fill="#FF715E"></path>
+                                    <path
+                                        d="M40 40.5L72 21V33.8615C72 34.5673 71.628 35.2209 71.0211 35.5812L40 54V40.5Z"
+                                        fill="#396CAA"></path>
+                                    <path
+                                        d="M34 39.7077L2 21V33.8615C2 34.5673 2.37203 35.2209 2.97892 35.5812L34 54V39.7077Z"
+                                        fill="#396DAC"></path>
+                                    <path d="M34 40.5H40V54H34V40.5Z" fill="#396CAA"></path>
+                                    <path
+                                        d="M3.27905 19.593L35.2806 1.54381C36.3478 0.941872 37.6522 0.941872 38.7194 1.54381L70.721 19.593C71.7294 20.1618 71.7406 21.6102 70.7411 22.1945L39.2712 40.593C37.8682 41.4133 36.1318 41.4133 34.7288 40.593L3.25887 22.1945C2.25937 21.6102 2.27061 20.1618 3.27905 19.593Z"
+                                        fill="#124E89" stroke="#396CAA"></path>
+                                    <path d="M40 43L72 24V34.4001C72 35.1151 71.6183 35.7758 70.9987 36.1329L40 54V43Z"
+                                        fill="#173D7A"></path>
+                                    <path d="M34 43L3 25V35.5751L34 54V43Z" fill="#0665B2"></path>
+                                    <path d="M68 30.5L70.5 29V32L68 33.5V30.5Z" fill="#FF715E"></path>
+                                    <path id="strobe_color3" d="M58 36.5L60.5 35V38L58 39.5V36.5Z" fill="#FF715E">
+                                    </path>
+                                    <path d="M63 33.5L65.5 32V35L63 36.5V33.5Z" fill="#FF715E"></path>
+                                    <path
+                                        d="M20.1902 22.0719C18.8101 21.3026 18.8252 19.3119 20.2168 18.5636L36.1054 10.0189C37.2884 9.3827 38.7116 9.3827 39.8946 10.0189L55.7832 18.5636C57.1748 19.3119 57.1899 21.3026 55.8098 22.0719L40.4345 30.6429C38.9211 31.4865 37.0789 31.4865 35.5655 30.6429L20.1902 22.0719Z"
+                                        fill="#396CAA"></path>
+                                    <path
+                                        d="M11 52.755C11 51.9801 11.8432 51.4997 12.5098 51.8947L23.5196 58.419C24.1273 58.7792 24.5 59.4332 24.5 60.1396V60.245C24.5 61.0199 23.6568 61.5003 22.9902 61.1053L11.9804 54.581C11.3727 54.2208 11 53.5668 11 52.8604V52.755Z"
+                                        fill="#396CAA"></path>
+                                    <mask id="mask0_2_176" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="11"
+                                        y="51" width="14" height="11">
+                                        <path
+                                            d="M11 52.755C11 51.9801 11.8432 51.4997 12.5098 51.8947L23.5196 58.419C24.1273 58.7792 24.5 59.4332 24.5 60.1396V60.245C24.5 61.0199 23.6568 61.5003 22.9902 61.1053L11.9804 54.581C11.3727 54.2208 11 53.5668 11 52.8604V52.755Z"
+                                            fill="#396CAA"></path>
+                                    </mask>
+                                    <g mask="url(#mask0_2_176)">
+                                        <path
+                                            d="M11.5 52.7417C11.5 51.9803 12.3349 51.5138 12.9833 51.9128L23.5482 58.4143C24.1397 58.7783 24.5 59.4231 24.5 60.1176V61.5L12.4598 54.4195C11.8651 54.0698 11.5 53.4315 11.5 52.7417V52.7417Z"
+                                            fill="#163874"></path>
+                                    </g>
+                                    <mask id="mask1_2_176" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="19"
+                                        y="9" width="38" height="23">
+                                        <path
+                                            d="M20.1902 22.0719C18.8101 21.3026 18.8252 19.3119 20.2168 18.5636L36.1054 10.0189C37.2884 9.3827 38.7116 9.3827 39.8946 10.0189L55.7832 18.5636C57.1748 19.3119 57.1899 21.3026 55.8098 22.0719L40.4345 30.6429C38.9211 31.4865 37.0789 31.4865 35.5655 30.6429L20.1902 22.0719Z"
+                                            fill="#396CAA"></path>
+                                    </mask>
+                                    <g mask="url(#mask1_2_176)">
+                                        <path
+                                            d="M18 21.3115L36.167 11.9451C37.3171 11.3521 38.6829 11.3521 39.833 11.9451L58 21.3115L40.3567 30.7405C38.8841 31.5275 37.1159 31.5275 35.6433 30.7405L18 21.3115Z"
+                                            fill="#173D7A"></path>
+                                    </g>
+                                    <path d="M37.447 21.565L35 19.9799L37.6941 18.66L40.141 20.245L37.447 21.565Z"
+                                        fill="#FF715E"></path>
+                                    <path
+                                        d="M48.9738 30.8646L47.0741 29.7745L49.1792 28.684L51.0789 29.7741L48.9738 30.8646Z"
+                                        fill="#173E7B"></path>
+                                    <path
+                                        d="M52.0661 29.0093L50.1635 27.9242L52.2657 26.8282L54.1682 27.9133L52.0661 29.0093Z"
+                                        fill="#173E7B"></path>
+                                    <path id="strobe_led1"
+                                        d="M55.1521 27.1464L53.2538 26.054L55.3602 24.9661L57.2585 26.0586L55.1521 27.1464Z"
+                                        fill="#3A6DAB"></path>
+                                </svg>
+                            </div>
+                            <div class="Ghost">
+                                <svg width="24" height="14" viewBox="0 0 60 36" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M1.96545 19.4296C0.643777 18.6484 0.658726 16.7309 1.99242 15.9705L28.0186 1.12982C29.2467 0.429534 30.7533 0.429533 31.9814 1.12982L58.0076 15.9704C59.3413 16.7309 59.3562 18.6484 58.0346 19.4296L32.5442 34.4962C30.9749 35.4238 29.0251 35.4238 27.4558 34.4962L1.96545 19.4296Z"
+                                        fill="#3C4F6D"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dbMenuBtn">
+                            <li><a class="dropdown-item" href="#" onclick="DataManager.viewDatabase(); return false;">
+                                    <i class="fas fa-eye me-2"></i>View Local Database
+                                </a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#" onclick="DataManager.exportData(); return false;">
+                                    <i class="fas fa-download me-2"></i>Export All Data
+                                </a></li>
+                            <li><a class="dropdown-item" href="#" onclick="DataManager.importData(); return false;">
+                                    <i class="fas fa-upload me-2"></i>Import Data
+                                </a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item text-danger" href="#"
+                                    onclick="ErrorLogger.open(); return false;">
+                                    <i class="fas fa-exclamation-circle me-2"></i>View Error Logs
+                                </a></li>
+                        </ul>
+                    </div>
+                </div>
+        </nav>
+    </header>
+
+    <main id="main-content">
+
+
+
+        <!-- View Database Modal -->
+        <div class="modal fade" id="viewDatabaseModal" tabindex="-1">
+            <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><i class="fas fa-database me-2"></i>Local Database Contents</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body p-0">
+                        <div class="modal-scroll-area">
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                This shows all data stored in your browser's local storage. You can export this data as
+                                a
+                                backup.
+                            </div>
+                            <div id="databaseContent" class="p-3 rounded border bg-light">
+                                <textarea id="databaseJson" class="form-control font-monospace small" rows="15"
+                                    style="white-space: pre; overflow-x: auto; font-size: 12px;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="DataManager.exportData()">
+                            <i class="fas fa-download me-1"></i>Export This Data
+                        </button>
+                        <button type="button" class="btn btn-success" onclick="DataManager.saveDatabase()">
+                            <i class="fas fa-save me-1"></i>Save & Apply
+                        </button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reset Confirmation Modal -->
+        <div class="modal fade" id="resetConfirmationModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white">
+                        <h5 class="modal-title"><i class="fas fa-exclamation-triangle me-2"></i>Confirm Reset</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="mb-0">Are you sure you want to reset all values to default? This action cannot be
+                            undone.
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
+                        <button type="button" class="btn btn-danger" id="confirmResetBtn">Yes, Reset All</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Generic Alert Modal -->
+        <div class="modal fade" id="genericAlertModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white" id="genericAlertHeader">
+                        <h5 class="modal-title" id="genericAlertTitle"><i
+                                class="fas fa-info-circle me-2"></i>Notification
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="mb-0" id="genericAlertMessage"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Generic Confirm Modal -->
+        <div class="modal fade" id="genericConfirmModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-danger text-white" id="genericConfirmHeader">
+                        <h5 class="modal-title" id="genericConfirmTitle"><i
+                                class="fas fa-question-circle me-2"></i>Confirm
+                        </h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="mb-0" id="genericConfirmMessage"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            id="genericConfirmCancelBtn">Cancel</button>
+                        <button type="button" class="btn btn-danger" id="genericConfirmYesBtn">Yes, Proceed</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Download Options Modal -->
+        <div class="modal fade" id="downloadOptionsModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title"><i class="fas fa-file-download me-2"></i>Download Options</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="mb-0">You have unsaved changes. How would you like to proceed?</p>
+                    </div>
+                    <div class="modal-footer flex-column align-items-stretch">
+                        <button type="button" class="btn btn-success" id="downloadSaveBtn">
+                            <i class="fas fa-save me-2"></i>Save & Download
+                        </button>
+                        <button type="button" class="btn btn-outline-secondary" id="downloadOnlyBtn">
+                            <i class="fas fa-download me-2"></i>Download Only (Don't Save)
+                        </button>
+                        <button type="button" class="btn btn-link text-muted text-decoration-none"
+                            data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container py-4">
+            <form id="invoiceForm">
+                <div class="row g-4">
+                    <!-- Main Invoice Area -->
+                    <div class="col-lg-8">
+                        <!-- Invoice Details Card -->
+                        <div class="card shadow-sm border-0 mb-4">
+                            <div
+                                class="card-header bg-white border-bottom py-3 d-flex flex-wrap justify-content-between align-items-center">
+                                <h5 class="mb-0 text-primary"><i class="fas fa-info-circle me-2"></i>Invoice Details
+                                </h5>
+                                <div
+                                    class="col-12 col-md-6 text-md-end no-print mt-2 mt-md-0 d-flex flex-wrap justify-content-md-end gap-2 justify-content-center">
+                                    <button type="button" class="btn-save-animated"
+                                        onclick="InvoiceManager.saveCurrent()">
+                                        <div class="svg-wrapper-1">
+                                            <div class="svg-wrapper">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+                                                    height="24" class="icon">
+                                                    <path
+                                                        d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <span>Save</span>
+                                    </button>
+                                    <button type="button" class="btn-history-animated"
+                                        onclick="InvoiceManager.openHistory()">
+                                        <div class="svg-wrapper-1">
+                                            <div class="svg-wrapper">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+                                                    height="24" class="icon">
+                                                    <path
+                                                        d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <span>History</span>
+                                    </button>
+                                    <button type="button" class="btn-reset-animated" id="resetBtn"
+                                        aria-label="Reset all fields">
+                                        <div class="svg-wrapper-1">
+                                            <div class="svg-wrapper">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+                                                    height="24" class="icon">
+                                                    <path
+                                                        d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z">
+                                                    </path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <span>Reset</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium">Invoice Number</label>
+                                        <input type="text" class="form-control" id="invoiceNumber"
+                                            placeholder="INV-24-001" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-medium">Date</label>
+                                        <input type="date" class="form-control" id="invoiceDate" required>
+                                    </div>
+                                </div>
+
+                                <hr class="my-4">
+
+                                <div class="row g-4">
+                                    <!-- Company Details -->
+                                    <div class="col-md-6 border-end-md">
+                                        <h6
+                                            class="mb-3 text-secondary d-flex justify-content-between align-items-center">
+                                            <span>My Company (From)</span>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                onclick="openProfileModal('company')">
+                                                <i class="fas fa-folder-open me-1"></i> Manage
+                                            </button>
+                                        </h6>
+                                        <div class="mb-2">
+                                            <label class="form-label small text-muted">Business Name</label>
+                                            <input type="text" class="form-control" id="companyName"
+                                                placeholder="Your Company Name">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="form-label small text-muted">GSTIN</label>
+                                            <input type="text" class="form-control" id="companyGst"
+                                                placeholder="e.g. 29AAAAA0000A1Z5">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="form-label small text-muted">Phone Number</label>
+                                            <input type="text" class="form-control" id="companyPhone"
+                                                placeholder="Ex: +91 9876543210">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="form-label small text-muted">Email</label>
+                                            <input type="email" class="form-control" id="companyEmail"
+                                                placeholder="company@example.com">
+                                        </div>
+
+                                        <div class="mb-2">
+                                            <label class="form-label small text-muted">Address</label>
+                                            <textarea class="form-control" id="companyAddress" rows="2"
+                                                placeholder="Full Address"></textarea>
+                                        </div>
+
+                                        <hr class="my-3">
+
+                                        <!-- Logo Section (Moved) -->
+                                        <h6 class="mb-3 text-secondary">Company Logo <span
+                                                class="text-muted small fw-normal">(Rec: 550x550px PNG)</span></h6>
+                                        <div class="mb-3">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="logoOption"
+                                                    id="logoUrlOption" value="url" checked>
+                                                <label class="form-check-label" for="logoUrlOption">Image URL</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="logoOption"
+                                                    id="logoCreateOption" value="create">
+                                                <label class="form-check-label" for="logoCreateOption">Create
+                                                    Logo</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="logoOption"
+                                                    id="logoNoneOption" value="none">
+                                                <label class="form-check-label" for="logoNoneOption">No Logo</label>
+                                            </div>
+                                        </div>
+
+                                        <div id="logoUrlInput" class="">
+                                            <div class="input-group">
+                                                <input class="form-control" type="url" id="logoUrl"
+                                                    placeholder="https://example.com/logo.png">
+                                                <button class="btn btn-outline-secondary" type="button"
+                                                    id="clearLogoUrlBtn" aria-label="Clear logo URL">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                            <button type="button" class="btn btn-sm btn-outline-primary mt-2"
+                                                id="previewLogoUrlBtn">Load Image</button>
+                                        </div>
+
+                                        <div id="logoCreateInput" class="d-none">
+                                            <div class="row g-2 align-items-end">
+                                                <div class="col-6 col-md-3">
+                                                    <label class="form-label small text-muted mb-1">Initials
+                                                        (Opt)</label>
+                                                    <input type="text" class="form-control" id="logoInitials"
+                                                        placeholder="ABC" maxlength="3">
+                                                </div>
+                                                <div class="col-6 col-md-3">
+                                                    <label class="form-label small text-muted mb-1">Bg Color</label>
+                                                    <input type="color" class="form-control form-control-color w-100"
+                                                        id="logoBgColor" value="#2563eb"
+                                                        title="Choose background color">
+                                                </div>
+                                                <div class="col-6 col-md-3">
+                                                    <label class="form-label small text-muted mb-1">Text Color</label>
+                                                    <input type="color" class="form-control form-control-color w-100"
+                                                        id="logoTextColor" value="#ffffff" title="Choose text color">
+                                                </div>
+                                                <div class="col-6 col-md-3">
+                                                    <button type="button" class="btn btn-primary w-100"
+                                                        id="generateLogoBtn">
+                                                        <i class="fas fa-magic me-1"></i>Generate
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="mt-3 text-center p-2 bg-light rounded border"
+                                            style="min-height: 100px; display: flex; align-items: center; justify-content: center;">
+                                            <img id="logoPreview" src="" alt="Logo Preview"
+                                                style="max-width: 100%; max-height: 100px; display: none;">
+                                            <span class="text-muted small" id="logoPlaceholder">No Logo Selected</span>
+                                        </div>
+
+                                        <hr class="my-3">
+
+                                        <!-- Signature Section (Moved) -->
+                                        <h6 class="mb-3 text-secondary">Authorized Signature <span
+                                                class="text-muted small fw-normal">(Rec: 400x150px PNG)</span></h6>
+                                        <div class="mb-3">
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="signatureOption"
+                                                    id="sigDrawOption" value="draw">
+                                                <label class="form-check-label" for="sigDrawOption">Draw</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="signatureOption"
+                                                    id="sigCreateOption" value="create">
+                                                <label class="form-check-label" for="sigCreateOption">Create
+                                                    Signature</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="signatureOption"
+                                                    id="sigUrlOption" value="url" checked>
+                                                <label class="form-check-label" for="sigUrlOption">Image URL</label>
+                                            </div>
+                                        </div>
+
+                                        <div id="sigCreateInput" class="d-none">
+                                            <div class="row g-2 align-items-end">
+                                                <div class="col-md-4">
+                                                    <label class="form-label small text-muted mb-1">Name</label>
+                                                    <input type="text" class="form-control" id="sigNameInput"
+                                                        placeholder="Enter Name">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <label class="form-label small text-muted mb-1">Font Style</label>
+                                                    <select class="form-select" id="sigFontInput">
+                                                        <option value="WhisperingSignature">Style 1</option>
+                                                        <option value="BastligaOne">Style 2</option>
+                                                        <option value="AmsterdamHandwriting">Style 3</option>
+                                                        <option value="Palisade">Style 4</option>
+                                                        <option value="Priestacy">Style 5</option>
+                                                        <option value="Signatie">Style 6</option>
+                                                        <option value="Modernline">Style 7</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <label class="form-label small text-muted mb-1">Color</label>
+                                                    <input type="color" class="form-control form-control-color w-100"
+                                                        id="sigColorInput" value="#000000">
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <button type="button" class="btn btn-primary w-100"
+                                                        id="generateSigBtn">
+                                                        <i class="fas fa-signature me-1"></i>Generate
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2 text-center p-2 bg-light rounded border"
+                                                style="min-height: 100px; display: flex; align-items: center; justify-content: center;">
+                                                <img id="sigCreatedPreview" src="" alt="Signature Preview"
+                                                    style="max-width: 100%; max-height: 100px; display: none;">
+                                                <span class="text-muted small" id="sigCreatedPlaceholder">Click Generate
+                                                    to
+                                                    preview</span>
+                                            </div>
+                                        </div>
+
+                                        <div id="sigDrawInput" class="d-none">
+                                            <canvas id="signatureCanvas" class="border rounded bg-white w-100"
+                                                height="150"></canvas>
+                                            <button type="button" class="btn btn-sm btn-outline-danger w-100 mt-1"
+                                                id="clearSignatureBtn"><i class="fas fa-eraser me-1"></i>Clear
+                                                Signature</button>
+                                        </div>
+
+                                        <div id="sigUrlInput" class="">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="signatureUrl"
+                                                    placeholder="https://example.com/signature.png">
+                                                <button class="btn btn-outline-secondary" type="button"
+                                                    id="clearSigUrlBtn" aria-label="Clear signature URL">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                            <div class="mt-3 text-center p-2 bg-light rounded border"
+                                                style="min-height: 100px; display: flex; align-items: center; justify-content: center;">
+                                                <img id="signatureUrlPreview" src="" alt="Signature Preview"
+                                                    style="max-width: 100%; max-height: 100px; display: none;">
+                                                <span class="text-muted small" id="signatureUrlPlaceholder">Preview will
+                                                    appear here</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Client Details -->
+                                    <div class="col-md-6">
+                                        <h6
+                                            class="mb-3 text-secondary d-flex justify-content-between align-items-center">
+                                            <span>Client Details (To)</span>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary"
+                                                onclick="openProfileModal('client')">
+                                                <i class="fas fa-folder-open me-1"></i> Manage
+                                            </button>
+                                        </h6>
+                                        <div class="mb-2">
+                                            <label class="form-label small text-muted">Client Name</label>
+                                            <input type="text" class="form-control" id="clientName"
+                                                placeholder="Client Name">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="form-label small text-muted">Client GSTIN</label>
+                                            <input type="text" class="form-control" id="clientGst"
+                                                placeholder="Client GSTIN (Optional)">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="form-label small text-muted">Phone Number</label>
+                                            <input type="text" class="form-control" id="clientPhone"
+                                                placeholder="Ex: +91 9876543210">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="form-label small text-muted">Email</label>
+                                            <input type="email" class="form-control" id="clientEmail"
+                                                placeholder="client@example.com">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="form-label small text-muted">Notes</label>
+                                            <input type="text" class="form-control" id="clientNotes"
+                                                placeholder="Internal notes (not on PDF)">
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="form-label small text-muted">Place of Supply</label>
+                                            <select class="form-select" id="clientState">
+                                                <option value="Same State">Intra-State (CGST + SGST)</option>
+                                                <option value="Inter State">Inter-State (IGST)</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label class="form-label small text-muted">Address</label>
+                                            <textarea class="form-control" id="clientAddress" rows="2"
+                                                placeholder="Client address"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr class="my-4">
+
+                                <!-- Transport Details (Optional) -->
+                                <h6 class="mb-3 text-secondary">Transport Details <span
+                                        class="text-muted small fw-normal">(For Delivery Challan)</span></h6>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="form-label small text-muted">Transport Mode</label>
+                                        <select class="form-select form-select-sm" id="transportMode">
+                                            <option value="">Select Mode</option>
+                                            <option value="Road" selected>Road</option>
+                                            <option value="Rail">Rail</option>
+                                            <option value="Air">Air</option>
+                                            <option value="Ship">Ship</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small text-muted">Vehicle/Ref Number</label>
+                                        <input type="text" class="form-control form-control-sm" id="vehicleNumber"
+                                            placeholder="e.g. KA-01-AB-1234">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <!-- Payment Details Card -->
+                        <div class="card shadow-sm border-0 mb-4">
+                            <div
+                                class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0 text-primary"><i class="fas fa-university me-2"></i>Payment Details</h5>
+                                <button type="button" class="btn btn-sm btn-outline-primary"
+                                    onclick="openProfileModal('payment')">
+                                    <i class="fas fa-address-book me-1"></i>Manage
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <label class="form-label small text-muted">Account Name</label>
+                                        <input type="text" class="form-control" id="accountName"
+                                            placeholder="Account Holder Name">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small text-muted">Bank Name - Branch</label>
+                                        <input type="text" class="form-control" id="bankName"
+                                            placeholder="e.g. HDFC Bank - Main Branch">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small text-muted">Account Number</label>
+                                        <input type="text" class="form-control" id="accountNumber"
+                                            placeholder="0000000000">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small text-muted">IFSC Code</label>
+                                        <input type="text" class="form-control" id="ifscCode" placeholder="HDFC0001234">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small text-muted">UPI ID</label>
+                                        <input type="text" class="form-control" id="upiId" placeholder="username@bank">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Items Card -->
+                        <div class="card shadow-sm border-0">
+                            <div
+                                class="card-header bg-white border-bottom py-3 d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0 text-primary"><i class="fas fa-list me-2"></i>Items</h5>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle mb-0" id="itemsTable">
+                                        <thead class="bg-light text-secondary">
+                                            <tr>
+                                                <th style="width: 35%;">Item Name</th>
+                                                <th style="width: 15%;">HSN/SAC</th>
+                                                <th style="width: 10%;">Qty</th>
+                                                <th style="width: 15%;">Rate</th>
+                                                <th style="width: 15%;">GST</th>
+                                                <th style="width: 10%; text-align: right;">Amount</th>
+                                                <th style="width: 5%;" aria-label="Actions"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="itemsBody">
+                                            <!-- Dynamic Rows -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="emptyState" class="text-center py-5 d-none">
+                                    <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
+                                    <p class="text-muted">No items added yet</p>
+                                </div>
+
+                                <!-- Buttons Footer -->
+                                <div class="p-4 border-top bg-light d-flex justify-content-start gap-3">
+                                    <button type="button" class="btn btn-primary" id="addItemBtn">
+                                        <i class="fas fa-plus me-1"></i>Add Item
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary" onclick="openItemModal()">
+                                        <i class="fas fa-list me-1"></i>Manage Items
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Additional Notes Card -->
+                        <div class="card shadow-sm border-0 mt-4">
+                            <div class="card-header bg-white border-bottom py-3">
+                                <h5 class="mb-0 text-primary"><i class="fas fa-sticky-note me-2"></i>Additional Notes
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <textarea class="form-control" id="invoiceNote" rows="3"
+                                    placeholder="Terms & Conditions, Payment Instructions, or any other notes..."></textarea>
+                                <div class="form-text">These notes will appear at the bottom of the invoice.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sidebar Summary -->
+                    <div class="col-lg-4">
+                        <div class="card shadow-sm border-0 mb-4 sticky-top" style="top: 20px; z-index: 100;">
+                            <div class="card-body p-4">
+                                <h5 class="card-title mb-4 fw-bold">Summary</h5>
+
+                                <!-- Discount Section -->
+                                <div class="mb-3">
+                                    <label class="form-label small text-muted">Discount</label>
+                                    <div class="input-group input-group-sm mb-2">
+                                        <div class="input-group-text bg-white">
+                                            <div class="form-check form-check-inline mb-0 me-0">
+                                                <input class="form-check-input" type="radio" name="discountType"
+                                                    id="discFixed" value="fixed" checked>
+                                                <label class="form-check-label small" for="discFixed">₹</label>
+                                            </div>
+                                        </div>
+                                        <div class="input-group-text bg-white border-start-0">
+                                            <div class="form-check form-check-inline mb-0 me-0">
+                                                <input class="form-check-input" type="radio" name="discountType"
+                                                    id="discPercent" value="percent">
+                                                <label class="form-check-label small" for="discPercent">%</label>
+                                            </div>
+                                        </div>
+                                        <input type="number" class="form-control text-end" id="discountValue"
+                                            placeholder="0" min="0">
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-muted">Subtotal</span>
+                                    <span class="fw-medium" id="summarySubtotal">₹0.00</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between mb-2 small text-success" id="discountRow">
+                                    <span class="text-muted">Discount</span>
+                                    <span id="summaryDiscount">- ₹0.00</span>
+                                </div>
+
+                                <div class="d-flex justify-content-between mb-2 small" id="cgstRow">
+                                    <span class="text-muted">CGST</span>
+                                    <span class="text-dark" id="summaryCGST">₹0.00</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2 small" id="sgstRow">
+                                    <span class="text-muted">SGST</span>
+                                    <span class="text-dark" id="summarySGST">₹0.00</span>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2 small d-none" id="igstRow">
+                                    <span class="text-muted">IGST</span>
+                                    <span class="text-dark" id="summaryIGST">₹0.00</span>
+                                </div>
+
+                                <hr>
+
+                                <div class="d-flex justify-content-between mb-4">
+                                    <span class="h5 mb-0">Total</span>
+                                    <span class="h5 mb-0 text-primary" id="summaryTotal">₹0.00</span>
+                                </div>
+
+                                <div class="mb-4 small text-muted text-end" id="summaryAmountInWordsRow">
+                                    <span id="summaryAmountInWords" class="fst-italic text-secondary">Zero Rupees
+                                        Only</span>
+                                </div>
+
+                                <div class="d-flex flex-column align-items-center w-100">
+                                    <a id="btnTaxInvoice" class="btn-slide primary" href="javascript:void(0)"
+                                        aria-label="Download Tax Invoice">
+                                        <span class="circle"><i class="fas fa-file-invoice"></i></span>
+                                        <span class="title">Tax Invoice</span>
+                                        <span class="title-hover">Download PDF</span>
+                                    </a>
+                                    <a id="btnSimpleInvoice" class="btn-slide success" href="javascript:void(0)"
+                                        aria-label="Download Simple Invoice">
+                                        <span class="circle"><i class="fas fa-file-alt"></i></span>
+                                        <span class="title">Simple Invoice</span>
+                                        <span class="title-hover">Download PDF</span>
+                                    </a>
+                                    <a id="btnCombinedInvoice" class="btn-slide success" href="javascript:void(0)"
+                                        aria-label="Download Combined Invoice">
+                                        <span class="circle"><i class="fas fa-file-invoice"></i></span>
+                                        <span class="title">Combined Invoice</span>
+                                        <span class="title-hover">Download PDF</span>
+                                    </a>
+                                    <a id="btnQuote" class="btn-slide info" href="javascript:void(0)"
+                                        aria-label="Download Quotation">
+                                        <span class="circle"><i class="fas fa-file-invoice-dollar"></i></span>
+                                        <span class="title">Quotation</span>
+                                        <span class="title-hover">Download PDF</span>
+                                    </a>
+                                    <a id="btnChallan" class="btn-slide warning" href="javascript:void(0)"
+                                        aria-label="Download Delivery Challan">
+                                        <span class="circle"><i class="fas fa-truck"></i></span>
+                                        <span class="title">Delivery Challan</span>
+                                        <span class="title-hover">Download PDF</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+    </main>
+
+    <footer class="bg-white border-top py-4 mt-5">
+        <div class="container text-center text-muted small">
+            <p class="mb-1">&copy; 2026 Invoice Generator. All rights reserved.</p>
+        </div>
+    </footer>
+    </div>
+
+    <!-- Floating Logo -->
+    <img src="img/750x337.png" class="fixed-bottom-logo" alt="Logo">
+
+    <!-- Profile Management Modal -->
+    <div class="modal fade" id="profileModal" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="profileModalTitle">Manage Profiles</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div
+                        class="p-3 bg-light border-bottom d-flex align-items-center justify-content-between flex-wrap gap-2">
+                        <div>
+                            <button class="btn btn-primary btn-sm" id="addProfileRowBtn">
+                                <i class="fas fa-plus me-1"></i> Add New Row
+                            </button>
+                            <span class="text-muted small ms-2">Click on a cell to edit.</span>
+                        </div>
+                        <div class="text-muted small">
+                            <i class="fas fa-info-circle text-primary me-1"></i>
+                            <strong>Logo:</strong> 550x550px | <strong>Signature:</strong> 400x150px (Transparent PNG)
+                        </div>
+                    </div>
+                    <div class="modal-scroll-area">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0 align-middle">
+                                <thead>
+                                    <tr id="profileTableHeader">
+                                        <!-- Dynamic Headers -->
+                                    </tr>
+                                </thead>
+                                <tbody id="profileTableBody">
+                                    <!-- Dynamic Rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="profileEmptyState" class="text-center py-5 text-muted d-none">
+                            <i class="fas fa-folder-open fa-3x mb-3 opacity-50"></i>
+                            <p>No profiles found. Add a row to get started.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Item DataList -->
+    <datalist id="itemList"></datalist>
+    <datalist id="gstRates">
+        <option value="0">
+        <option value="5">
+        <option value="12">
+        <option value="18">
+        <option value="28">
+    </datalist>
+
+    <!-- Item Manager Modal -->
+    <div class="modal fade" id="itemModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Manage Predefined Items</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="modal-scroll-area">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Item Name</th>
+                                        <th>HSN/SAC</th>
+                                        <th>Rate</th>
+                                        <th>GST %</th>
+                                        <th style="width: 150px;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="itemTableBody">
+                                    <!-- Dynamic Rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="itemEmptyState" class="text-center py-4 text-muted">
+                            No items found. Add items to list or type in invoice to auto-save.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-start">
+                    <button class="btn btn-primary" onclick="ItemManager.addRow()">
+                        <i class="fas fa-plus me-1"></i>Add New Item
+                    </button>
+                    <!-- Hidden input to track if we are picking for a specific row -->
+                    <input type="hidden" id="targetRowId" value="">
+                    <button type="button" class="btn btn-secondary ms-auto" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Invoice History Modal -->
+    <div class="modal fade" id="historyModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header align-items-center">
+                    <h5 class="modal-title mb-0">Invoice History</h5>
+                    <div class="ms-auto me-3" style="width: 250px;">
+                        <input type="text" class="form-control form-control-sm" id="invoiceSearchInput" placeholder="Search by Client, Inv# or Amount..." oninput="InvoiceManager.handleSearch(this.value)">
+                    </div>
+                    <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="modal-scroll-area">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th onclick="InvoiceManager.sortHistory('savedAt')" style="cursor: pointer;">
+                                            Date Saved <i id="sort-icon-date" class="fas fa-sort text-muted ms-1"></i>
+                                        </th>
+                                        <th onclick="InvoiceManager.sortHistory('details.invoiceNumber')"
+                                            style="cursor: pointer;">
+                                            Invoice # <i id="sort-icon-inv" class="fas fa-sort text-muted ms-1"></i>
+                                        </th>
+                                        <th onclick="InvoiceManager.sortHistory('details.clientName')"
+                                            style="cursor: pointer;">
+                                            Client <i id="sort-icon-client" class="fas fa-sort text-muted ms-1"></i>
+                                        </th>
+                                        <th onclick="InvoiceManager.sortHistory('totals.total')"
+                                            style="cursor: pointer;">
+                                            Amount <i id="sort-icon-amount" class="fas fa-sort text-muted ms-1"></i>
+                                        </th>
+                                        <th style="width: 260px;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="historyTableBody"></tbody>
+                            </table>
+                        </div>
+                        <div id="historyEmptyState" class="text-center py-4 text-muted">
+                            No saved invoices found.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success me-auto"
+                        onclick="InvoiceManager.exportHistoryToExcel()">
+                        <i class="fas fa-file-excel me-1"></i> Export to Excel
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Invoice Preview Modal -->
+    <div class="modal fade" id="previewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header align-items-center">
+                    <h5 class="modal-title mb-0">Invoice Preview</h5>
+                    <div class="ms-auto me-3">
+                        <select id="previewTypeSelect" class="form-select form-select-sm" onchange="InvoiceManager.changePreviewType()">
+                            <option value="tax">Tax Invoice</option>
+                            <option value="simple">Simple Invoice</option>
+                            <option value="combined">Combined Invoice</option>
+                            <option value="quote">Quotation</option>
+                            <option value="challan">Delivery Challan</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn-close m-0" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div id="previewLoading" class="text-center py-5 d-none">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                    <iframe id="previewIframe" style="width: 100%; height: 75vh; border: none; display: none;"></iframe>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-primary" onclick="InvoiceManager.downloadPreview()">
+                        <i class="fas fa-download me-1"></i> Download
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Error Logs Modal -->
+    <div class="modal fade" id="viewLogsModal" tabindex="-1">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger"><i class="fas fa-exclamation-triangle me-2"></i>Application
+                        Error Logs</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="modal-scroll-area">
+                        <div id="logsContent" class="p-3 rounded border bg-dark text-light font-monospace small"
+                            style="min-height: 200px; white-space: pre-wrap;">
+                            No logs found.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" onclick="ErrorLogger.download()">
+                        <i class="fas fa-file-download me-1"></i>Download as .txt
+                    </button>
+                    <button type="button" class="btn btn-outline-danger" onclick="ErrorLogger.clear()">
+                        <i class="fas fa-trash me-1"></i>Clear Logs
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden File Input for Import -->
+    <input type="file" id="importFileInput" accept=".json" style="display: none;">
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js" defer></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js" defer></script>
+    <script src="js/pdf-builder.js?v=4" defer></script>
+    <script src="js/app.js?v=4" defer></script>
+
+    <script>
+        // Register Service Worker for PWA (Only if on HTTPS or Localhost)
+        if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('SW Registered'))
+                    .catch(err => console.log('SW Registration Failed', err));
+            });
+        } else {
+            console.log('SW Registration skipped: Not on a secure origin or running locally via file://');
+        }
+    </script>
+    <!-- Setup Database Modal -->
+    <div class="modal fade" id="setupDatabaseModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-database text-primary me-2"></i>Setup Supabase Database</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>Database Not Found!</strong> The required `sync_data` table does not exist in your Supabase project.
+                    </div>
+                    <p>To enable automatic syncing across devices, please execute the following SQL command in your Supabase SQL Editor:</p>
+                    <div class="position-relative">
+                        <textarea class="form-control font-monospace text-light bg-dark" rows="7" readonly style="resize: none;">
+CREATE TABLE IF NOT EXISTS public.sync_data (
+    key TEXT PRIMARY KEY,
+    value JSONB NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Enable access for anonymous users
+ALTER TABLE public.sync_data ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Allow anon all" ON public.sync_data FOR ALL TO anon USING (true) WITH CHECK (true);
+                        </textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Draw Signature Modal -->
+    <div class="modal fade" id="drawModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Draw Signature</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="border rounded bg-white d-inline-block">
+                        <canvas id="profileSigCanvas" width="400" height="200"
+                            style="cursor: crosshair; touch-action: none;"></canvas>
+                    </div>
+                    <div class="mt-2 text-muted small">Sign above</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" onclick="ProfileManager.clearDrawCanvas()">
+                        <i class="fas fa-eraser me-1"></i> Clear
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="ProfileManager.saveDrawing()">
+                        <i class="fas fa-save me-1"></i> Save Signature
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTopBtn" aria-label="Back to top" title="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+</body>
+
+</html>
