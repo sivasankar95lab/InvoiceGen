@@ -1,0 +1,38 @@
+name: Keep Supabase Alive
+
+on:
+  schedule:
+    # Run twice a week (Monday and Thursday at midnight UTC)
+    - cron: '0 0 * * 1,4'
+  # Allow running manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  ping-supabase:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase REST API
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          if [ -z "$SUPABASE_URL" ] || [ -z "$SUPABASE_ANON_KEY" ]; then
+            echo "Please add SUPABASE_URL and SUPABASE_ANON_KEY to your GitHub repository secrets."
+            exit 1
+          fi
+          
+          echo "Pinging Supabase to prevent pausing..."
+          # A simple GET request to the REST API is enough to register activity.
+          # Replace 'your_table_name' with a table you actually have, or just ping the root REST endpoint.
+          STATUS_CODE=$(curl -s -o /dev/null -w "%{http_code}" "$SUPABASE_URL/rest/v1/" \
+            -H "apikey: $SUPABASE_ANON_KEY" \
+            -H "Authorization: Bearer $SUPABASE_ANON_KEY")
+          
+          echo "Received status code: $STATUS_CODE"
+          
+          if [ "$STATUS_CODE" -eq 200 ] || [ "$STATUS_CODE" -eq 400 ] || [ "$STATUS_CODE" -eq 401 ] || [ "$STATUS_CODE" -eq 404 ]; then
+            echo "Successfully connected to Supabase."
+          else
+            echo "Failed to ping Supabase (Status: $STATUS_CODE)"
+            exit 1
+          fi
