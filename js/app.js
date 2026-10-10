@@ -1210,16 +1210,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         },
 
-        async autoSaveClient() {
-            // Logic handled by main app save flow usually, but we keep this for specific field blurs
+        async saveCurrentClientProfile() {
             const clientName = document.getElementById('clientName').value;
-            if (!clientName) return;
+            if (!clientName) {
+                NotificationManager.alert('Please enter a client name first.', 'Validation Error', 'warning');
+                return;
+            }
 
             const key = 'invoice_profiles_client';
             const parsed = await StorageManager.getItem(key, []);
             let profiles = Array.isArray(parsed) ? parsed : [];
 
-            // Check if exists
             const existingIndex = profiles.findIndex(p => p.clientName === clientName);
 
             const currentProfile = {
@@ -1233,11 +1234,46 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             if (existingIndex !== -1) {
-                profiles[existingIndex] = currentProfile;
+                profiles[existingIndex] = { ...profiles[existingIndex], ...currentProfile };
             } else {
                 profiles.push(currentProfile);
             }
             await StorageManager.setItem(key, profiles);
+            NotificationManager.alert('Client profile saved successfully!', 'Success', 'success');
+        },
+
+        async saveCurrentCompanyProfile() {
+            const companyName = document.getElementById('companyName').value;
+            if (!companyName) {
+                NotificationManager.alert('Please enter a business name first.', 'Validation Error', 'warning');
+                return;
+            }
+
+            const key = 'invoice_profiles_company';
+            const parsed = await StorageManager.getItem(key, []);
+            let profiles = Array.isArray(parsed) ? parsed : [];
+
+            const existingIndex = profiles.findIndex(p => p.companyName === companyName);
+
+            const currentProfile = {
+                companyName: companyName,
+                companyGstin: document.getElementById('companyGst').value,
+                companyPhone: document.getElementById('companyPhone').value,
+                companyEmail: document.getElementById('companyEmail').value,
+                companyAddress: document.getElementById('companyAddress').value,
+                logoOption: document.querySelector('input[name="logoOption"]:checked')?.value || 'none',
+                logoUrl: state.logoImage,
+                signatureOption: document.querySelector('input[name="signatureOption"]:checked')?.value || 'url',
+                signatureUrl: state.signatureImage
+            };
+
+            if (existingIndex !== -1) {
+                profiles[existingIndex] = { ...profiles[existingIndex], ...currentProfile };
+            } else {
+                profiles.push(currentProfile);
+            }
+            await StorageManager.setItem(key, profiles);
+            NotificationManager.alert('Company profile saved successfully!', 'Success', 'success');
         },
 
         renderTable() {
@@ -1540,13 +1576,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    // Auto-Save Listeners for Client Fields
-    ['clientName', 'clientAddress', 'clientGst', 'clientPhone', 'clientEmail', 'clientNotes', 'clientState'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) {
-            el.addEventListener('blur', () => ProfileManager.autoSaveClient());
-        }
-    });
+    // Auto-Save Listeners removed to enforce manual saving using the buttons
 
 
 
