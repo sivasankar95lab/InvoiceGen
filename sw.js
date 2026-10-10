@@ -1,4 +1,4 @@
-const CACHE_NAME = 'invoice-gen-v12';
+const CACHE_NAME = 'invoice-gen-v13';
 const ASSETS = [
     './',
     './index.html',
@@ -60,8 +60,11 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
     const url = new URL(event.request.url);
 
-    // Skip non-GET requests
-    if (event.request.method !== 'GET') return;
+    // Skip non-GET requests and non-http protocols
+    if (event.request.method !== 'GET' || !url.protocol.startsWith('http')) return;
+
+    // Do not cache API requests (Supabase)
+    if (url.hostname.includes('supabase.co')) return;
 
     // 1. Network First for index.html (ensure users get the latest app skeleton)
     if (url.pathname === '/' || url.pathname.endsWith('index.html')) {
@@ -106,8 +109,10 @@ self.addEventListener('fetch', (event) => {
                 const clonedResponse = networkResponse.clone();
                 caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clonedResponse));
                 return networkResponse;
-            }).catch(() => {
-                // Ignore network errors on background revalidation
+            }).catch((error) => {
+                // If this was a background revalidation, we just ignore the error.
+                // If it was the primary fetch (because cachedResponse was null), this throw is necessary so the browser knows the fetch failed.
+                throw error;
             });
 
             // Return cached immediately if available, otherwise wait for network
