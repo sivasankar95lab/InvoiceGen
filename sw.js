@@ -1,4 +1,4 @@
-const CACHE_NAME = 'invoice-gen-v11';
+const CACHE_NAME = 'invoice-gen-v12';
 const ASSETS = [
     './',
     './index.html',
@@ -72,7 +72,7 @@ self.addEventListener('fetch', (event) => {
                     caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clonedResponse));
                     return networkResponse;
                 })
-                .catch(() => caches.match(event.request))
+                .catch(() => caches.match(event.request, { ignoreSearch: true }))
         );
         return;
     }
@@ -87,7 +87,7 @@ self.addEventListener('fetch', (event) => {
         url.hostname === 'fonts.gstatic.com'
     ) {
         event.respondWith(
-            caches.match(event.request).then((cachedResponse) => {
+            caches.match(event.request, { ignoreSearch: true }).then((cachedResponse) => {
                 return cachedResponse || fetch(event.request).then((networkResponse) => {
                     const clonedResponse = networkResponse.clone();
                     caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clonedResponse));
@@ -100,7 +100,7 @@ self.addEventListener('fetch', (event) => {
 
     // 3. Stale-While-Revalidate for CSS, JS, and CDN assets
     event.respondWith(
-        caches.match(event.request).then((cachedResponse) => {
+        caches.match(event.request, { ignoreSearch: true }).then((cachedResponse) => {
             const fetchPromise = fetch(event.request).then((networkResponse) => {
                 // Cache the fresh response dynamically
                 const clonedResponse = networkResponse.clone();
