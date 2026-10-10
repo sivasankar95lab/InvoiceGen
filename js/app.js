@@ -1776,23 +1776,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // Re-render to show updated values
             renderItems();
             calculateTotals();
-        } else {
-            // It's a new item (or name changed)
-            const row = state.items.find(i => i.id === id);
-            if (row && row.name) {
-                ItemManager.checkAndSave(row.name, row.hsn, row.rate, row.gst);
-            }
-        }
-    };
-
-    // Hook into updateItemData to trigger auto-save on other fields changing too
-    const originalUpdate = window.updateItemData;
-    window.updateItemData = (id, field, value) => {
-        originalUpdate(id, field, value); // Call original
-        // Try auto-save if we have enough info
-        const row = state.items.find(i => i.id === id);
-        if (row && row.name && field !== 'qty') { // Don't save on qty change
-            ItemManager.checkAndSave(row.name, row.hsn, row.rate, row.gst);
         }
     };
 
@@ -1833,6 +1816,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         async saveCurrent() {
             try {
+                // Auto-save items to catalogue when invoice is saved
+                state.items.forEach(row => {
+                    if (row && row.name) {
+                        ItemManager.checkAndSave(row.name, row.hsn, row.rate, row.gst);
+                    }
+                });
+
                 const data = gatherData();
                 let snapshot = {
                     id: Date.now(),
