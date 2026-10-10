@@ -1034,6 +1034,14 @@
                                             style="cursor: pointer;">
                                             Client <i id="sort-icon-client" class="fas fa-sort text-muted ms-1"></i>
                                         </th>
+                                        <th onclick="InvoiceManager.sortHistory('totals.taxableValue')"
+                                            style="cursor: pointer;">
+                                            Non Tax Amount <i id="sort-icon-nontax" class="fas fa-sort text-muted ms-1"></i>
+                                        </th>
+                                        <th onclick="InvoiceManager.sortHistory('taxAmount')"
+                                            style="cursor: pointer;">
+                                            Tax Amount <i id="sort-icon-tax" class="fas fa-sort text-muted ms-1"></i>
+                                        </th>
                                         <th onclick="InvoiceManager.sortHistory('totals.total')"
                                             style="cursor: pointer;">
                                             Amount <i id="sort-icon-amount" class="fas fa-sort text-muted ms-1"></i>
