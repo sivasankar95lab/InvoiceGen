@@ -947,6 +947,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const ProfileManager = {
         currentType: 'company',
         profiles: [],
+        searchQuery: '',
         drawCanvas: null,
         drawCtx: null,
         isDrawing: false,
@@ -1066,9 +1067,25 @@ document.addEventListener('DOMContentLoaded', () => {
             const titleEl = document.getElementById('profileModalTitle');
             if (titleEl) titleEl.textContent = title;
 
+            // Reset search input if exists
+            const searchInput = document.getElementById('profileSearchInput');
+            if (searchInput) searchInput.value = '';
+            this.searchQuery = '';
+
+            const warningEl = document.getElementById('companyProfileWarning');
+            if (warningEl) {
+                if (type === 'company') warningEl.classList.remove('d-none');
+                else warningEl.classList.add('d-none');
+            }
+
             await this.loadProfiles();
             this.renderTable();
             if (this.modal) this.modal.show();
+        },
+
+        handleSearch(query) {
+            this.searchQuery = query.toLowerCase().trim();
+            this.renderTable();
         },
 
         async loadProfiles() {
@@ -1211,9 +1228,9 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         async saveCurrentClientProfile() {
-            const clientName = document.getElementById('clientName').value;
-            if (!clientName) {
-                NotificationManager.alert('Please enter a client name first.', 'Validation Error', 'warning');
+            const clientPhone = document.getElementById('clientPhone').value;
+            if (!clientPhone) {
+                NotificationManager.alert('Please enter a client phone number first.', 'Validation Error', 'warning');
                 return;
             }
 
@@ -1221,7 +1238,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const parsed = await StorageManager.getItem(key, []);
             let profiles = Array.isArray(parsed) ? parsed : [];
 
-            const existingIndex = profiles.findIndex(p => p.clientName === clientName);
+            const clientName = document.getElementById('clientName').value;
+            const existingIndex = profiles.findIndex(p => p.clientName === clientName || p.clientPhone === clientPhone);
 
             const currentProfile = {
                 clientName: clientName,
@@ -1234,12 +1252,13 @@ document.addEventListener('DOMContentLoaded', () => {
             };
 
             if (existingIndex !== -1) {
-                profiles[existingIndex] = { ...profiles[existingIndex], ...currentProfile };
+                NotificationManager.alert('Client with this Name or Phone Number already exists!', 'Warning', 'warning');
+                return;
             } else {
                 profiles.push(currentProfile);
+                await StorageManager.setItem(key, profiles);
+                NotificationManager.alert('Client profile saved successfully!', 'Success', 'success');
             }
-            await StorageManager.setItem(key, profiles);
-            NotificationManager.alert('Client profile saved successfully!', 'Success', 'success');
         },
 
         async saveCurrentCompanyProfile() {
@@ -1294,11 +1313,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Body
             tbody.innerHTML = '';
-            if (this.profiles.length === 0) {
-                emptyState.classList.remove('d-none');
-            } else {
-                emptyState.classList.add('d-none');
+            
+            let visibleCount = 0;
+            if (this.profiles.length > 0) {
                 this.profiles.forEach((profile, index) => {
+                    if (this.searchQuery) {
+                        const name = (profile.clientName || profile.companyName || profile.accountName || '').toLowerCase();
+                        const phone = (profile.clientPhone || profile.companyPhone || '').toLowerCase();
+                        if (!name.includes(this.searchQuery) && !phone.includes(this.searchQuery)) {
+                            return; // skip this row
+                        }
+                    }
+                    visibleCount++;
                     const tr = document.createElement('tr');
                     fields.forEach(f => {
                         const td = document.createElement('td');
@@ -1373,6 +1399,12 @@ document.addEventListener('DOMContentLoaded', () => {
                             input.value = profile[f.key] || '';
                             input.placeholder = f.label;
                             input.style.minWidth = '120px';
+                            
+                            if (f.key === 'companyPhone' || f.key === 'clientPhone') {
+                                input.addEventListener('input', function() {
+                                    this.value = this.value.replace(/[^0-9]/g, '');
+                                });
+                            }
 
                             // Special logic for Signature URL when option is DRAW
                             if (f.key === 'signatureUrl' && profile.signatureOption === 'draw') {
@@ -1412,6 +1444,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Initialize UI State
                     this.updateUIState(index);
                 });
+            }
+
+            if (visibleCount === 0) {
+                emptyState.classList.remove('d-none');
+            } else {
+                emptyState.classList.add('d-none');
             }
         },
 
