@@ -1898,8 +1898,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 filteredHistory = this.history.filter(inv => {
                     const invNumber = (inv.details.invoiceNumber || '').toLowerCase();
                     const client = (inv.details.clientName || '').toLowerCase();
+                    const mobile = (inv.details.clientPhone || '').toLowerCase();
                     const amount = (inv.totals?.total || 0).toString();
-                    return invNumber.includes(this.searchQuery) || client.includes(this.searchQuery) || amount.includes(this.searchQuery);
+                    return invNumber.includes(this.searchQuery) || client.includes(this.searchQuery) || mobile.includes(this.searchQuery) || amount.includes(this.searchQuery);
                 });
             }
 
@@ -1912,6 +1913,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     // But we have 'id' which is timestamp.
                     valA = a.id;
                     valB = b.id;
+                } else if (this.sortField === 'taxAmount') {
+                    valA = a.totals.cgst + a.totals.sgst + a.totals.igst;
+                    valB = b.totals.cgst + b.totals.sgst + b.totals.igst;
                 } else if (this.sortField.includes('.')) {
                     const parts = this.sortField.split('.');
                     valA = a[parts[0]][parts[1]];
@@ -1945,6 +1949,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         <td data-label="Date Saved">${record.savedAt}</td>
                         <td data-label="Invoice #" class="fw-bold">${record.details.invoiceNumber}</td>
                         <td data-label="Client">${record.details.clientName || '-'}</td>
+                        <td data-label="Non Tax Amount">₹${record.totals.taxableValue.toFixed(2)}</td>
+                        <td data-label="Tax Amount">₹${(record.totals.cgst + record.totals.sgst + record.totals.igst).toFixed(2)}</td>
                         <td data-label="Amount">₹${record.totals.total.toFixed(2)}</td>
                         <td data-label="Actions">
                             <div class="d-flex align-items-center gap-1">
